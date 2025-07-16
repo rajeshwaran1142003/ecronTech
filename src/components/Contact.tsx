@@ -1,7 +1,21 @@
 import React from 'react';
+import { useState } from 'react';
 import { Phone, Mail, MapPin, Clock, Send, Navigation } from 'lucide-react';
+import { supabase, type ContactMessage } from '../lib/supabase';
 
 const Contact: React.FC = () => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    courseInterest: '',
+    message: ''
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
   const contactInfo = [
     {
       icon: MapPin,
@@ -32,6 +46,101 @@ const Contact: React.FC = () => {
       action: null
     }
   ];
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = 'First name is required';
+    }
+
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = 'Last name is required';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+    } else if (!/^[\+]?[0-9\s\-\(\)]{10,}$/.test(formData.phone)) {
+      newErrors.phone = 'Please enter a valid phone number';
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    
+    try {
+      // Get current user if authenticated
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      const contactMessage: Omit<ContactMessage, 'id' | 'created_at'> = {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        course_interest: formData.courseInterest || null,
+        message: formData.message,
+        user_id: user?.id || null
+      };
+
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([contactMessage]);
+
+      if (error) {
+        throw error;
+      }
+
+      setSubmitStatus('success');
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        courseInterest: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id="contact" className="py-20 bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden">
@@ -128,7 +237,23 @@ const Contact: React.FC = () => {
               Send us a Message
             </h3>
             
-            <form className="space-y-6">
+            {submitStatus === 'success' && (
+              <div className="mb-6 p-4 bg-green-500/20 border border-green-500/40 rounded-xl">
+                <p className="text-green-300 font-semibold">
+                  Thank you for your message! We'll get back to you soon.
+                </p>
+              </div>
+            )}
+
+            {submitStatus === 'error' && (
+              <div className="mb-6 p-4 bg-red-500/20 border border-red-500/40 rounded-xl">
+                <p className="text-red-300 font-semibold">
+                  There was an error sending your message. Please try again.
+                </p>
+              </div>
+            )}
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-white mb-3 font-semibold">
@@ -136,9 +261,17 @@ const Contact: React.FC = () => {
                   </label>
                   <input
                     type="text"
-                    className="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    className={`w-full px-6 py-4 rounded-xl bg-white/10 border text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300 ${
+                      errors.firstName ? 'border-red-500' : 'border-white/20'
+                    }`}
                     placeholder="Your first name"
                   />
+                  {errors.firstName && (
+                    <p className="mt-2 text-sm text-red-400">{errors.firstName}</p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-white mb-3 font-semibold">
@@ -146,9 +279,17 @@ const Contact: React.FC = () => {
                   </label>
                   <input
                     type="text"
-                    className="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    className={`w-full px-6 py-4 rounded-xl bg-white/10 border text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300 ${
+                      errors.lastName ? 'border-red-500' : 'border-white/20'
+                    }`}
                     placeholder="Your last name"
                   />
+                  {errors.lastName && (
+                    <p className="mt-2 text-sm text-red-400">{errors.lastName}</p>
+                  )}
                 </div>
               </div>
               
@@ -158,9 +299,17 @@ const Contact: React.FC = () => {
                 </label>
                 <input
                   type="email"
-                  className="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className={`w-full px-6 py-4 rounded-xl bg-white/10 border text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300 ${
+                    errors.email ? 'border-red-500' : 'border-white/20'
+                  }`}
                   placeholder="your.email@example.com"
                 />
+                {errors.email && (
+                  <p className="mt-2 text-sm text-red-400">{errors.email}</p>
+                )}
               </div>
               
               <div>
@@ -169,16 +318,29 @@ const Contact: React.FC = () => {
                 </label>
                 <input
                   type="tel"
-                  className="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  className={`w-full px-6 py-4 rounded-xl bg-white/10 border text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300 ${
+                    errors.phone ? 'border-red-500' : 'border-white/20'
+                  }`}
                   placeholder="+91 8438829844"
                 />
+                {errors.phone && (
+                  <p className="mt-2 text-sm text-red-400">{errors.phone}</p>
+                )}
               </div>
               
               <div>
                 <label className="block text-white mb-3 font-semibold">
                   Course of Interest
                 </label>
-                <select className="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300">
+                <select 
+                  name="courseInterest"
+                  value={formData.courseInterest}
+                  onChange={handleInputChange}
+                  className="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300"
+                >
                   <option value="" className="text-gray-800">Select a course</option>
                   <option value="python" className="text-gray-800">Python Programming</option>
                   <option value="javascript" className="text-gray-800">JavaScript Development</option>
@@ -189,6 +351,10 @@ const Contact: React.FC = () => {
                   <option value="frontend" className="text-gray-800">HTML/CSS/Bootstrap</option>
                   <option value="oracle" className="text-gray-800">Oracle Database</option>
                   <option value="postgresql" className="text-gray-800">PostgreSQL</option>
+                  <option value="fullstack" className="text-gray-800">Full Stack Master Program</option>
+                  <option value="cloud" className="text-gray-800">Cloud Computing</option>
+                  <option value="datascience" className="text-gray-800">Data Science</option>
+                  <option value="testing" className="text-gray-800">Software Testing</option>
                 </select>
               </div>
               
@@ -198,17 +364,35 @@ const Contact: React.FC = () => {
                 </label>
                 <textarea
                   rows={4}
-                  className="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent resize-none transition-all duration-300"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  className={`w-full px-6 py-4 rounded-xl bg-white/10 border text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent resize-none transition-all duration-300 ${
+                    errors.message ? 'border-red-500' : 'border-white/20'
+                  }`}
                   placeholder="Tell us more about your goals and how we can help..."
                 ></textarea>
+                {errors.message && (
+                  <p className="mt-2 text-sm text-red-400">{errors.message}</p>
+                )}
               </div>
               
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-3 group transform hover:scale-105 shadow-lg hover:shadow-xl"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 disabled:from-pink-400 disabled:to-pink-500 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-3 group transform hover:scale-105 shadow-lg hover:shadow-xl disabled:transform-none disabled:cursor-not-allowed"
               >
-                <Send size={20} className="group-hover:translate-x-1 transition-transform" />
-                Send Message
+                {isSubmitting ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send size={20} className="group-hover:translate-x-1 transition-transform" />
+                    Send Message
+                  </>
+                )}
               </button>
             </form>
           </div>
