@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Code, Database, Smartphone, Globe, Brain, Shield, FileCode, Server, Layout, Cloud, TestTube, BarChart3, Coffee, ChevronDown, ChevronUp } from 'lucide-react';
+import { Code, Database, Smartphone, Globe, Brain, Shield, FileCode, Server, Layout, Cloud, TestTube, BarChart3, Coffee, ChevronDown, ChevronUp, Palette, Layers } from 'lucide-react';
 
 interface Course {
   id: string;
@@ -9,6 +9,8 @@ interface Course {
   category: string;
   duration: string;
   level: string;
+  fee: string;
+  maxSalary?: string;
   highlights: string[];
   details: string[];
 }
@@ -23,6 +25,43 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
 
   const courses: Course[] = [
     {
+      id: '9',
+      icon: Code,
+      title: 'MEAN Stack Development',
+      description: 'Complete full-stack development with MongoDB, Express.js, Angular, and Node.js.',
+      category: 'fullstack',
+      duration: '2 months',
+      level: 'Beginner to Advanced',
+      fee: '₹40,000 (Maximum: ₹25,000)',
+      highlights: ['HTML, CSS, JS, Bootstrap', 'React JS, Node.js', 'MongoDB'],
+      details: [
+        'Frontend development with HTML, CSS, JavaScript',
+        'Modern frameworks: React JS and Bootstrap',
+        'Backend development with Node.js',
+        'Database management with MongoDB',
+        'Full-stack project development'
+      ]
+    },
+    {
+      id: '10',
+      icon: Palette,
+      title: 'UI/UX Design',
+      description: 'Master user interface and user experience design with industry-standard tools.',
+      category: 'design',
+      duration: '2 months',
+      level: 'Beginner to Intermediate',
+      fee: '₹25,000',
+      maxSalary: '₹30,000',
+      highlights: ['Figma', 'Adobe Illustrator', 'Miro'],
+      details: [
+        'User interface design principles',
+        'User experience research and testing',
+        'Prototyping with Figma',
+        'Vector graphics with Adobe Illustrator',
+        'Collaborative design with Miro'
+      ]
+    },
+    {
       id: '1',
       icon: Code,
       title: 'Full Stack Master Program',
@@ -30,6 +69,7 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
       category: 'fullstack',
       duration: '16 weeks',
       level: 'Beginner to Advanced',
+      fee: 'Contact for pricing',
       highlights: ['HTML, CSS, Bootstrap', 'JavaScript, Python, Java', 'Angular, SQL'],
       details: [
         'Real-time web & backend development',
@@ -45,6 +85,7 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
       category: 'cloud',
       duration: '13 weeks',
       level: 'Intermediate',
+      fee: 'Contact for pricing',
       highlights: ['Linux, AWS, Azure, GCP', 'DevOps'],
       details: [
         'Virtual machines, cloud storage',
@@ -60,6 +101,7 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
       category: 'cloud',
       duration: '18 weeks',
       level: 'Advanced',
+      fee: 'Contact for pricing',
       highlights: ['Linux, Shell Scripting', 'AWS/Azure/GCP, DevOps', 'Python'],
       details: [
         'Real-world DevOps environments',
@@ -75,6 +117,7 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
       category: 'testing',
       duration: '12 weeks',
       level: 'Beginner to Intermediate',
+      fee: 'Contact for pricing',
       highlights: ['Manual Testing', 'Selenium with Java', 'SQL'],
       details: [
         'Test case design',
@@ -90,6 +133,7 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
       category: 'data',
       duration: '20 weeks',
       level: 'Intermediate to Advanced',
+      fee: 'Contact for pricing',
       highlights: ['SQL, Statistics, Python', 'Data Science, ML, Deep Learning', 'AI, Power BI'],
       details: [
         'Real-world ML models',
@@ -105,6 +149,7 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
       category: 'data',
       duration: '13 weeks',
       level: 'Beginner to Intermediate',
+      fee: 'Contact for pricing',
       highlights: ['Excel, Advanced Excel', 'SQL, Power BI', 'Python'],
       details: [
         'Dashboard creation',
@@ -120,6 +165,7 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
       category: 'programming',
       duration: '16 weeks',
       level: 'Beginner to Advanced',
+      fee: 'Contact for pricing',
       highlights: ['Java, J2EE', 'SQL'],
       details: [
         'OOP, Servlets, JDBC',
@@ -135,6 +181,7 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
       category: 'programming',
       duration: '13 weeks',
       level: 'Beginner to Advanced',
+      fee: 'Contact for pricing',
       highlights: ['Python', 'SQL'],
       details: [
         'Python basics to advanced',
@@ -147,6 +194,7 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
   const filters = [
     { id: 'all', label: 'All Courses' },
     { id: 'fullstack', label: 'Full Stack' },
+    { id: 'design', label: 'UI/UX Design' },
     { id: 'programming', label: 'Programming' },
     { id: 'cloud', label: 'Cloud & DevOps' },
     { id: 'data', label: 'Data Science' },
@@ -255,6 +303,20 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
                   <span className="text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-4 py-2 rounded-full font-medium">
                     {course.level}
                   </span>
+                </div>
+
+                {/* Fee and Salary Information */}
+                <div className="mb-6 space-y-3">
+                  <div className="bg-green-50 dark:bg-green-900/30 p-4 rounded-xl border border-green-200 dark:border-green-800">
+                    <div className="text-sm font-semibold text-green-700 dark:text-green-300 mb-1">Course Fee</div>
+                    <div className="text-lg font-bold text-green-800 dark:text-green-200">{course.fee}</div>
+                  </div>
+                  {course.maxSalary && (
+                    <div className="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-xl border border-blue-200 dark:border-blue-800">
+                      <div className="text-sm font-semibold text-blue-700 dark:text-blue-300 mb-1">Expected Salary</div>
+                      <div className="text-lg font-bold text-blue-800 dark:text-blue-200">{course.maxSalary}</div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Expanded Details */}

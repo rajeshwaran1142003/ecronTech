@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon, Phone, Mail, MapPin, User, LogOut } from 'lucide-react';
+import { Menu, X, Sun, Moon, Phone, Mail, MapPin } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
-import { useAuth } from './AuthProvider';
-import AuthModal from './AuthModal';
 import SocialLinks from './SocialLinks';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showAuthModal, setShowAuthModal] = useState(false);
-  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
   const { isDark, toggleTheme } = useTheme();
-  const { user, signOut, loading } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,17 +24,8 @@ const Header: React.FC = () => {
     { href: '#contact', label: 'Contact' }
   ];
 
-  const handleAuthClick = (mode: 'signin' | 'signup') => {
-    setAuthMode(mode);
-    setShowAuthModal(true);
-  };
-
-  const handleSignOut = async () => {
-    await signOut();
-  };
-
   return (
-    <>
+    <div>
       {/* Top Bar */}
       <div className="bg-gradient-to-r from-pink-600 to-pink-700 text-white py-2 text-sm">
         <div className="container mx-auto px-4">
@@ -108,42 +94,6 @@ const Header: React.FC = () => {
                 </a>
               ))}
               
-              {/* Auth Section */}
-              {!loading && (
-                <div className="flex items-center gap-4">
-                  {user ? (
-                    <div className="flex items-center gap-3">
-                      <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-                        <User size={18} />
-                        <span className="text-sm font-medium">{user.email}</span>
-                      </div>
-                      <button
-                        onClick={handleSignOut}
-                        className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-pink-100 dark:hover:bg-pink-900 hover:text-pink-600 dark:hover:text-pink-400 rounded-lg transition-all duration-300 text-sm"
-                      >
-                        <LogOut size={16} />
-                        Sign Out
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={() => handleAuthClick('signin')}
-                        className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 font-medium transition-colors"
-                      >
-                        Sign In
-                      </button>
-                      <button
-                        onClick={() => handleAuthClick('signup')}
-                        className="px-4 py-2 bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
-                      >
-                        Sign Up
-                      </button>
-                    </div>
-                  )}
-                </div>
-              )}
-              
               <button
                 onClick={toggleTheme}
                 className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-pink-100 dark:hover:bg-pink-900 hover:text-pink-600 dark:hover:text-pink-400 transition-all duration-300 transform hover:scale-110"
@@ -185,59 +135,11 @@ const Header: React.FC = () => {
                   {item.label}
                 </a>
               ))}
-              
-              {/* Mobile Auth Section */}
-              {!loading && (
-                <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                  {user ? (
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-2 px-4 py-2 text-gray-700 dark:text-gray-300">
-                        <User size={18} />
-                        <span className="text-sm font-medium">{user.email}</span>
-                      </div>
-                      <button
-                        onClick={handleSignOut}
-                        className="w-full flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-pink-100 dark:hover:bg-pink-900 hover:text-pink-600 dark:hover:text-pink-400 rounded-lg transition-all duration-300"
-                      >
-                        <LogOut size={16} />
-                        Sign Out
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="space-y-3">
-                      <button
-                        onClick={() => {
-                          handleAuthClick('signin');
-                          setIsMenuOpen(false);
-                        }}
-                        className="w-full px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 font-medium transition-colors text-left"
-                      >
-                        Sign In
-                      </button>
-                      <button
-                        onClick={() => {
-                          handleAuthClick('signup');
-                          setIsMenuOpen(false);
-                        }}
-                        className="w-full px-4 py-2 bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white rounded-lg font-medium transition-all duration-300"
-                      >
-                        Sign Up
-                      </button>
-                    </div>
-                  )}
-                </div>
-              )}
             </nav>
           </div>
         </div>
       </header>
-      
-      <AuthModal 
-        isOpen={showAuthModal} 
-        onClose={() => setShowAuthModal(false)} 
-        initialMode={authMode}
-      />
-    </>
+    </div>
   );
 };
 

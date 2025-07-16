@@ -104,9 +104,6 @@ const Contact: React.FC = () => {
     setSubmitStatus('idle');
     
     try {
-      // Get current user if authenticated
-      const { data: { user } } = await supabase.auth.getUser();
-      
       const contactMessage: Omit<ContactMessage, 'id' | 'created_at'> = {
         first_name: formData.firstName,
         last_name: formData.lastName,
@@ -114,7 +111,7 @@ const Contact: React.FC = () => {
         phone: formData.phone,
         course_interest: formData.courseInterest || null,
         message: formData.message,
-        user_id: user?.id || null
+        user_id: null
       };
 
       const { error } = await supabase
