@@ -3,6 +3,8 @@ import { ArrowLeft, Clock, Users, Award, CheckCircle, Send, User, Mail, Phone, M
 import Header from './Header';
 import Footer from './Footer';
 import WhatsAppFloat from './WhatsAppFloat';
+import { useAuth } from './AuthProvider';
+import AuthModal from './AuthModal';
 
 interface CourseData {
   id: string;
@@ -35,6 +37,8 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const { user } = useAuth();
 
   const coursesData: Record<string, CourseData> = {
     '1': {
@@ -429,6 +433,12 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Check if user is authenticated
+    if (!user) {
+      setShowAuthModal(true);
+      return;
+    }
+    
     if (!validateForm()) {
       return;
     }
@@ -445,6 +455,27 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
       setIsSubmitting(false);
     }
   };
+
+  const handleAuthSuccess = () => {
+    setShowAuthModal(false);
+    // Auto-fill email if user is now authenticated
+    if (user?.email) {
+      setFormData(prev => ({
+        ...prev,
+        email: user.email || ''
+      }));
+    }
+  };
+
+  // Auto-fill email when user is authenticated
+  React.useEffect(() => {
+    if (user?.email && !formData.email) {
+      setFormData(prev => ({
+        ...prev,
+        email: user.email || ''
+      }));
+    }
+  }, [user, formData.email]);
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
@@ -725,7 +756,7 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
                   ) : (
                     <>
                       <Send size={20} className="group-hover:translate-x-1 transition-transform" />
-                      Apply Now
+                      {user ? 'Apply Now' : 'Sign In to Apply'}
                     </>
                   )}
                 </button>
@@ -754,6 +785,13 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
 
       <Footer />
       <WhatsAppFloat />
+      
+      <AuthModal 
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onSuccess={handleAuthSuccess}
+        initialMode="signin"
+      />
     </div>
   );
 };

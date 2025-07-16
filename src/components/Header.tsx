@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon, Phone, Mail, MapPin } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import SocialLinks from './SocialLinks';
+import { useAuth } from './AuthProvider';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { isDark, toggleTheme } = useTheme();
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -94,6 +96,20 @@ const Header: React.FC = () => {
                 </a>
               ))}
               
+              {user && (
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    {user.email}
+                  </span>
+                  <button
+                    onClick={signOut}
+                    className="text-sm bg-pink-100 dark:bg-pink-900 text-pink-600 dark:text-pink-400 px-3 py-1 rounded-lg hover:bg-pink-200 dark:hover:bg-pink-800 transition-colors"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              )}
+              
               <button
                 onClick={toggleTheme}
                 className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-pink-100 dark:hover:bg-pink-900 hover:text-pink-600 dark:hover:text-pink-400 transition-all duration-300 transform hover:scale-110"
@@ -135,6 +151,23 @@ const Header: React.FC = () => {
                   {item.label}
                 </a>
               ))}
+              
+              {user && (
+                <div className="py-2 px-4 border-t dark:border-gray-700">
+                  <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                    Signed in as: {user.email}
+                  </div>
+                  <button
+                    onClick={() => {
+                      signOut();
+                      setIsMenuOpen(false);
+                    }}
+                    className="text-sm bg-pink-100 dark:bg-pink-900 text-pink-600 dark:text-pink-400 px-3 py-1 rounded-lg hover:bg-pink-200 dark:hover:bg-pink-800 transition-colors"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              )}
             </nav>
           </div>
         </div>
