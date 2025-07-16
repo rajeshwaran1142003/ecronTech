@@ -296,27 +296,13 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
                   </div>
                 </div>
                 
-                <div className="flex justify-between items-center mb-6">
+                <div className="flex justify-center items-center mb-6">
                   <span className="text-sm bg-gradient-to-r from-pink-100 to-pink-200 dark:from-pink-900 dark:to-pink-800 text-pink-700 dark:text-pink-300 px-4 py-2 rounded-full font-medium">
                     {course.duration}
                   </span>
-                  <span className="text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-4 py-2 rounded-full font-medium">
+                  <span className="text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-4 py-2 rounded-full font-medium ml-4">
                     {course.level}
                   </span>
-                </div>
-
-                {/* Fee and Salary Information */}
-                <div className="mb-6 space-y-3">
-                  <div className="bg-green-50 dark:bg-green-900/30 p-4 rounded-xl border border-green-200 dark:border-green-800">
-                    <div className="text-sm font-semibold text-green-700 dark:text-green-300 mb-1">Course Fee</div>
-                    <div className="text-lg font-bold text-green-800 dark:text-green-200">{course.fee}</div>
-                  </div>
-                  {course.maxSalary && (
-                    <div className="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-xl border border-blue-200 dark:border-blue-800">
-                      <div className="text-sm font-semibold text-blue-700 dark:text-blue-300 mb-1">Expected Salary</div>
-                      <div className="text-lg font-bold text-blue-800 dark:text-blue-200">{course.maxSalary}</div>
-                    </div>
-                  )}
                 </div>
 
                 {/* Expanded Details */}
@@ -339,7 +325,7 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
                     onClick={() => handleViewDetails(course.id)}
                     className="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                   >
-                    View Full Details & Apply
+                    Apply for this Course
                   </button>
 
                   <button
