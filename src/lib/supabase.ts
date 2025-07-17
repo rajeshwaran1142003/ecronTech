@@ -18,6 +18,19 @@ export interface ContactMessage {
   phone: string
   course_interest?: string
   message: string
+  user_id?: string
+  created_at?: string
+}
+
+export interface CourseApplication {
+  id?: string
+  full_name: string
+  email: string
+  phone: string
+  course_name: string
+  experience_level: string
+  interest_message: string
+  user_id?: string
   created_at?: string
 }
 

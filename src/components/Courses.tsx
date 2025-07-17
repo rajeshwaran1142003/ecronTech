@@ -46,19 +46,17 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
       id: '10',
       icon: Palette,
       title: 'UI/UX Design',
-      description: 'Master user interface and user experience design with industry-standard tools.',
+      description: 'Comprehensive UI/UX design training covering user research, wireframing, prototyping, and visual design using industry-standard tools.',
       category: 'design',
-      duration: '2 months',
+      duration: '8 weeks',
       level: 'Beginner to Intermediate',
-      fee: '₹25,000',
-      maxSalary: '₹30,000',
-      highlights: ['Figma', 'Adobe Illustrator', 'Miro'],
+      highlights: ['HTML, CSS, JS, Bootstrap', 'React JS, Node.js, MongoDB', 'Figma, Adobe XD, Sketch'],
       details: [
-        'User interface design principles',
-        'User experience research and testing',
-        'Prototyping with Figma',
-        'Vector graphics with Adobe Illustrator',
-        'Collaborative design with Miro'
+        'Full product design lifecycle training',
+        'User research and wireframing techniques',
+        'Prototyping and visual design mastery',
+        'Industry tools: Figma, Adobe XD, Sketch',
+        'Real-world case studies and projects'
       ]
     },
     {

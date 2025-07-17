@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Clock, Users, Award, CheckCircle, Send, User, Mail, Phone, MessageSquare, BookOpen, Target, Briefcase } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { supabase, type CourseApplication } from '../lib/supabase';
 import Header from './Header';
 import Footer from './Footer';
 import WhatsAppFloat from './WhatsAppFloat';
@@ -162,43 +162,44 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
       icon: BookOpen
     },
     '4': {
-      id: '4',
-      title: 'Software Testing Master Program',
+      description: 'Comprehensive UI/UX design training covering user research, wireframing, prototyping, and visual design.',
+      duration: '8 weeks',
       description: 'Comprehensive testing training covering manual and automated testing methodologies.',
-      duration: '12 weeks',
+      highlights: ['HTML, CSS, JS, Bootstrap', 'React JS, Node.js, MongoDB', 'Figma, Adobe XD, Sketch'],
       level: 'Beginner to Intermediate',
-      highlights: ['Manual Testing', 'Selenium with Java', 'SQL'],
-      details: [
-        'Test case design',
-        'UI automation using Selenium',
-        'Database validation'
+        'Full product design lifecycle training',
+        'User research and wireframing techniques', 
+        'Prototyping and visual design mastery',
+        'Industry tools: Figma, Adobe XD, Sketch',
+        'Real-world case studies and projects'
       ],
-      fullDescription: 'The Software Testing Master Program provides complete training in both manual and automated testing methodologies. Over 12 weeks, you\'ll learn to design comprehensive test cases, execute manual testing procedures, and build automated test suites using Selenium with Java. The course covers database testing, API testing, and modern testing frameworks used in the industry.',
+      fullDescription: 'The UI/UX Design Training program is designed to equip learners with a strong foundation in user interface (UI) and user experience (UX) design principles, tools, and methodologies. Through hands-on projects and real-world case studies, students learn how to create intuitive, attractive, and user-centered digital products. The course covers the full product design lifecycle—from user research and wireframing to prototyping, testing, and visual design—using industry tools like Figma, Adobe XD, and Sketch.',
       curriculum: [
-        'Testing Fundamentals: SDLC, STLC, Testing types and levels',
-        'Manual Testing: Test case design, Execution, Bug reporting',
-        'Test Management Tools: JIRA, TestRail, Quality Center',
-        'Java Programming: Core Java, OOP concepts for automation',
-        'Selenium WebDriver: Element identification, Actions, Waits',
-        'TestNG Framework: Annotations, Data providers, Parallel execution',
-        'SQL for Testing: Database validation, Data verification',
-        'API Testing: REST APIs, Postman, REST Assured',
-        'Performance Testing: JMeter basics, Load testing',
-        'CI/CD Integration: Jenkins, Maven, Git integration'
+        'HTML: Structure and semantic markup for web interfaces',
+        'CSS: Styling, layouts, responsive design principles',
+        'JavaScript: Interactive elements and user behavior',
+        'Bootstrap: Rapid prototyping and responsive frameworks',
+        'React JS: Component-based UI development',
+        'Node.js: Backend integration for full-stack understanding',
+        'MongoDB: Database design for user data management',
+        'Figma: Professional design tool for UI/UX workflows',
+        'Adobe XD: Prototyping and design system creation',
+        'Sketch: Vector-based design for digital interfaces'
       ],
       prerequisites: [
-        'Basic computer skills',
-        'Logical thinking and attention to detail',
-        'No prior programming experience required',
-        'Understanding of web applications helpful'
+        'Basic computer literacy and internet navigation',
+        'Creative thinking and visual design interest',
+        'No prior design experience required',
+        'Understanding of websites and mobile apps helpful'
       ],
       careerOpportunities: [
-        'Software Tester',
-        'QA Engineer',
-        'Automation Test Engineer',
-        'Test Lead',
-        'QA Analyst',
-        'Performance Test Engineer'
+        'UI Designer',
+        'UX Designer', 
+        'Product Designer',
+        'Interaction Designer',
+        'UX Researcher',
+        'Visual Designer',
+        'Web/App Interface Designer'
       ],
       icon: BookOpen
     },
@@ -456,19 +457,19 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
         }
       }
 
-      // Submit the course application to Supabase
-      const applicationData = {
-        first_name: formData.name.split(' ')[0] || formData.name,
-        last_name: formData.name.split(' ').slice(1).join(' ') || '',
+      // Submit the course application to the course_applications table
+      const applicationData: Omit<CourseApplication, 'id' | 'created_at'> = {
+        full_name: formData.name,
         email: formData.email,
         phone: formData.phone,
-        course_interest: course.title,
-        message: `Experience Level: ${formData.experience}\n\nInterest: ${formData.message}`,
+        course_name: course.title,
+        experience_level: formData.experience,
+        interest_message: formData.message,
         user_id: user?.id || null
       };
 
       const { error: insertError } = await supabase
-        .from('contact_messages')
+        .from('course_applications')
         .insert([applicationData]);
 
       if (insertError) {
