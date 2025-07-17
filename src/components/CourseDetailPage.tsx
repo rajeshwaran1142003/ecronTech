@@ -162,11 +162,13 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
       icon: BookOpen
     },
     '4': {
+      id: '4',
+      title: 'UI/UX Design Training',
       description: 'Comprehensive UI/UX design training covering user research, wireframing, prototyping, and visual design.',
       duration: '8 weeks',
-      description: 'Comprehensive testing training covering manual and automated testing methodologies.',
-      highlights: ['HTML, CSS, JS, Bootstrap', 'React JS, Node.js, MongoDB', 'Figma, Adobe XD, Sketch'],
       level: 'Beginner to Intermediate',
+      highlights: ['HTML, CSS, JS, Bootstrap', 'React JS, Node.js, MongoDB', 'Figma, Adobe XD, Sketch'],
+      details: [
         'Full product design lifecycle training',
         'User research and wireframing techniques', 
         'Prototyping and visual design mastery',
