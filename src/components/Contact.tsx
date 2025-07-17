@@ -302,7 +302,7 @@ const Contact: React.FC = () => {
                   className={`w-full px-6 py-4 rounded-xl bg-white/10 border text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300 ${
                     errors.email ? 'border-red-500' : 'border-white/20'
                   }`}
-                  placeholder="your.email@example.com"
+                  placeholder="Enter your email address"
                 />
                 {errors.email && (
                   <p className="mt-2 text-sm text-red-400">{errors.email}</p>
