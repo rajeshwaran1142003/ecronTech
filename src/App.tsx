@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
-import { AuthProvider } from './components/AuthProvider';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Statistics from './components/Statistics';
@@ -49,37 +48,35 @@ function App() {
 
   return (
     <ThemeProvider>
-      <AuthProvider>
-          <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
-            {currentView === 'course-detail' ? (
-              <CourseDetailPage 
-                courseId={selectedCourseId} 
-                onBack={handleBackToHome}
-              />
-            ) : currentView === 'modern-contact' ? (
-              <ModernContactPage />
-            ) : currentView === 'contact' ? (
-              <>
-                <Header />
-                <ContactPage />
-                <Footer />
-                <WhatsAppFloat />
-              </>
-            ) : (
-              <>
-                <Header />
-                <Hero />
-                <Statistics />
-                <Courses onCourseSelect={handleCourseSelect} />
-                <About />
-                <Testimonials />
-                <Contact />
-                <Footer />
-                <WhatsAppFloat />
-              </>
-            )}
-          </div>
-      </AuthProvider>
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
+        {currentView === 'course-detail' ? (
+          <CourseDetailPage 
+            courseId={selectedCourseId} 
+            onBack={handleBackToHome}
+          />
+        ) : currentView === 'modern-contact' ? (
+          <ModernContactPage />
+        ) : currentView === 'contact' ? (
+          <>
+            <Header />
+            <ContactPage />
+            <Footer />
+            <WhatsAppFloat />
+          </>
+        ) : (
+          <>
+            <Header />
+            <Hero />
+            <Statistics />
+            <Courses onCourseSelect={handleCourseSelect} />
+            <About />
+            <Testimonials />
+            <Contact />
+            <Footer />
+            <WhatsAppFloat />
+          </>
+        )}
+      </div>
     </ThemeProvider>
   );
 }
