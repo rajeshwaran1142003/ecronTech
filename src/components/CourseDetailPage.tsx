@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Clock, Users, Award, CheckCircle, Send, User, Mail, Phone, MessageSquare, BookOpen, Target, Briefcase } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 import Header from './Header';
 import Footer from './Footer';
 import WhatsAppFloat from './WhatsAppFloat';
 import { useAuth } from './AuthProvider';
-import AuthModal from './AuthModal';
 
 interface CourseData {
   id: string;
@@ -38,6 +38,7 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const { user } = useAuth();
 
   const coursesData: Record<string, CourseData> = {
@@ -433,37 +434,54 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Check if user is authenticated
-    if (!user) {
-      setShowAuthModal(true);
-      return;
-    }
-    
     if (!validateForm()) {
       return;
     }
 
     setIsSubmitting(true);
+    setSubmitStatus('idle');
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      alert(`Thank you for your interest in ${course.title}! We will contact you soon with more details.`);
+      // If user is not authenticated, create account first
+      if (!user) {
+        // Create account with the provided email and a temporary password
+        const tempPassword = Math.random().toString(36).slice(-8) + 'A1!';
+        const { error: signUpError } = await supabase.auth.signUp({
+          email: formData.email,
+          password: tempPassword,
+        });
+
+        if (signUpError) {
+          throw new Error(`Account creation failed: ${signUpError.message}`);
+        }
+      }
+
+      // Submit the course application to Supabase
+      const applicationData = {
+        first_name: formData.name.split(' ')[0] || formData.name,
+        last_name: formData.name.split(' ').slice(1).join(' ') || '',
+        email: formData.email,
+        phone: formData.phone,
+        course_interest: course.title,
+        message: `Experience Level: ${formData.experience}\n\nInterest: ${formData.message}`,
+        user_id: user?.id || null
+      };
+
+      const { error: insertError } = await supabase
+        .from('contact_messages')
+        .insert([applicationData]);
+
+      if (insertError) {
+        throw insertError;
+      }
+
+      setSubmitStatus('success');
       setFormData({ name: '', email: '', phone: '', course: course.title, experience: '', message: '' });
     } catch (error) {
-      alert('There was an error submitting your application. Please try again.');
+      console.error('Error submitting application:', error);
+      setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  const handleAuthSuccess = () => {
-    setShowAuthModal(false);
-    // Auto-fill email if user is now authenticated
-    if (user?.email) {
-      setFormData(prev => ({
-        ...prev,
-        email: user.email || ''
-      }));
     }
   };
 
@@ -505,6 +523,23 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
             <p className="text-2xl text-pink-100 mb-8 leading-relaxed animate-slide-up">
               {course.description}
             </p>
+            
+            {submitStatus === 'success' && (
+              <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl">
+                <p className="text-green-700 dark:text-green-300 font-semibold text-center">
+                  🎉 Application submitted successfully! 
+                  {!user && <><br />An account has been created for you. Check your email for login details.</>}
+                </p>
+              </div>
+            )}
+
+            {submitStatus === 'error' && (
+              <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
+                <p className="text-red-700 dark:text-red-300 font-semibold text-center">
+                  ❌ There was an error submitting your application. Please try again.
+                </p>
+              </div>
+            )}
             
             <div className="flex flex-wrap gap-6 text-lg">
               <div className="flex items-center gap-2">
@@ -746,17 +781,17 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 disabled:from-pink-400 disabled:to-pink-500 text-white py-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-3 group transform hover:scale-105 shadow-lg hover:shadow-xl"
+                  className="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 disabled:from-pink-400 disabled:to-pink-500 text-white py-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-3 group transform hover:scale-105 shadow-lg hover:shadow-xl disabled:transform-none disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
                       <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                      Submitting Application...
+                      {user ? 'Submitting Application...' : 'Creating Account & Applying...'}
                     </>
                   ) : (
                     <>
                       <Send size={20} className="group-hover:translate-x-1 transition-transform" />
-                      {user ? 'Apply Now' : 'Sign In to Apply'}
+                      {user ? 'Submit Application' : 'Create Account & Apply'}
                     </>
                   )}
                 </button>
@@ -765,7 +800,7 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
               {/* Contact Info */}
               <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
                 <p className="text-sm text-gray-600 dark:text-gray-400 text-center mb-4">
-                  Need more information? Contact us directly:
+                  {user ? 'Need more information? Contact us directly:' : 'By applying, you agree to create an account with us.'}
                 </p>
                 <div className="space-y-2 text-sm">
                   <a href="tel:+918438829844" className="flex items-center gap-2 text-pink-600 hover:text-pink-700 transition-colors">
@@ -785,13 +820,6 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
 
       <Footer />
       <WhatsAppFloat />
-      
-      <AuthModal 
-        isOpen={showAuthModal}
-        onClose={() => setShowAuthModal(false)}
-        onSuccess={handleAuthSuccess}
-        initialMode="signin"
-      />
     </div>
   );
 };
