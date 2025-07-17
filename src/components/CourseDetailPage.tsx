@@ -459,19 +459,19 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
         }
       }
 
-      // Submit the course application to the course_applications table
-      const applicationData: Omit<CourseApplication, 'id' | 'created_at'> = {
-        full_name: formData.name,
+      // Submit the course application to Supabase
+      const applicationData = {
+        first_name: formData.name.split(' ')[0] || formData.name,
+        last_name: formData.name.split(' ').slice(1).join(' ') || '',
         email: formData.email,
         phone: formData.phone,
-        course_name: course.title,
-        experience_level: formData.experience,
-        interest_message: formData.message,
+        course_interest: course.title,
+        message: `Experience Level: ${formData.experience}\n\nInterest: ${formData.message}`,
         user_id: user?.id || null
       };
 
       const { error: insertError } = await supabase
-        .from('course_applications')
+        .from('contact_messages')
         .insert([applicationData]);
 
       if (insertError) {
