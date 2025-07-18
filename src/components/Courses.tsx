@@ -25,14 +25,13 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
 
   const courses: Course[] = [
     {
-      id: '9',
+      id: 'mean-stack',
       icon: Code,
       title: 'MEAN Stack Development',
       description: 'Complete full-stack development with MongoDB, Express.js, Angular, and Node.js.',
       category: 'fullstack',
       duration: '2 months',
       level: 'Beginner to Advanced',
-      fee: '₹40,000 (Maximum: ₹25,000)',
       highlights: ['HTML, CSS, JS, Bootstrap', 'React JS, Node.js', 'MongoDB'],
       details: [
         'Frontend development with HTML, CSS, JavaScript',
@@ -43,12 +42,12 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
       ]
     },
     {
-      id: '10',
+      id: 'uiux-design',
       icon: Palette,
       title: 'UI/UX Design',
       description: 'Comprehensive UI/UX design training covering user research, wireframing, prototyping, and visual design using industry-standard tools.',
       category: 'design',
-      duration: '8 weeks',
+      duration: '2 months',
       level: 'Beginner to Intermediate',
       highlights: ['HTML, CSS, JS, Bootstrap', 'React JS, Node.js, MongoDB', 'Figma, Adobe XD, Sketch'],
       details: [

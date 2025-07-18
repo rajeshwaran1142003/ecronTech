@@ -52,6 +52,91 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const coursesData: Record<string, CourseData> = {
+    'mean-stack': {
+      id: 'mean-stack',
+      title: 'MEAN Stack Development',
+      description: 'Complete full-stack development with MongoDB, Express.js, Angular, and Node.js.',
+      duration: '2 months',
+      level: 'Beginner to Advanced',
+      highlights: ['HTML, CSS, JS, Bootstrap', 'React JS, Node.js', 'MongoDB'],
+      details: [
+        'Frontend development with HTML, CSS, JavaScript',
+        'Modern frameworks: React JS and Bootstrap',
+        'Backend development with Node.js',
+        'Database management with MongoDB',
+        'Full-stack project development'
+      ],
+      fullDescription: 'Our MEAN Stack Development program is designed to transform you into a complete full-stack developer. This comprehensive 2-month course covers everything from frontend technologies like HTML, CSS, and JavaScript to backend development with Node.js and database management with MongoDB. You\'ll learn to build responsive web applications, work with modern frameworks like React JS, and deploy applications to production environments. The program emphasizes hands-on learning through real-world projects that mirror industry standards.',
+      curriculum: [
+        'Frontend Development: HTML5, CSS3, Bootstrap, Responsive Design',
+        'JavaScript Fundamentals: ES6+, DOM Manipulation, Async Programming',
+        'React JS: Component-based Architecture, State Management, Hooks',
+        'Backend Development: Node.js, Express.js, RESTful APIs',
+        'Database Management: MongoDB, Mongoose, Database Design',
+        'Version Control: Git, GitHub, Collaboration Workflows',
+        'API Development: RESTful APIs, JSON, Authentication',
+        'Deployment: Cloud platforms, CI/CD, Production best practices'
+      ],
+      prerequisites: [
+        'Basic computer literacy',
+        'No prior programming experience required',
+        'Willingness to learn and practice regularly',
+        'Access to a computer with internet connection'
+      ],
+      careerOpportunities: [
+        'MEAN Stack Developer',
+        'Full Stack Developer',
+        'Frontend Developer',
+        'Backend Developer',
+        'Web Application Developer',
+        'JavaScript Developer'
+      ],
+      icon: Code
+    },
+    'uiux-design': {
+      id: 'uiux-design',
+      title: 'UI/UX Design',
+      description: 'The UI/UX Design Training program is designed to equip learners with a strong foundation in user interface (UI) and user experience (UX) design principles, tools, and methodologies.',
+      duration: '2 months',
+      level: 'Beginner to Intermediate',
+      highlights: ['HTML, CSS, JS, Bootstrap', 'React JS, Node.js, MongoDB', 'Figma, Adobe XD, Sketch'],
+      details: [
+        'Full product design lifecycle training',
+        'User research and wireframing techniques',
+        'Prototyping and visual design mastery',
+        'Industry tools: Figma, Adobe XD, Sketch',
+        'Real-world case studies and projects'
+      ],
+      fullDescription: 'The UI/UX Design Training program is designed to equip learners with a strong foundation in user interface (UI) and user experience (UX) design principles, tools, and methodologies. Through hands-on projects and real-world case studies, students learn how to create intuitive, attractive, and user-centered digital products. The course covers the full product design lifecycle—from user research and wireframing to prototyping, testing, and visual design—using industry tools like Figma, Adobe XD, and Sketch. Fees: ₹40,000 + GST. Mode: Online / Offline. Average Salaries: ₹3L - ₹7L Per Annum. Hiring Companies: TCS, Accenture, Amazon, CISCO, Capgemini, etc.',
+      curriculum: [
+        'HTML: Structure and semantic markup for web interfaces',
+        'CSS: Styling, layouts, responsive design principles',
+        'JavaScript: Interactive elements and user behavior',
+        'Bootstrap: Rapid prototyping and responsive frameworks',
+        'React JS: Component-based UI development',
+        'Node.js: Backend integration for full-stack understanding',
+        'MongoDB: Database design for user data management',
+        'Figma: Professional design tool for UI/UX workflows',
+        'Adobe XD: Prototyping and design system creation',
+        'Sketch: Vector-based design for digital interfaces'
+      ],
+      prerequisites: [
+        'Basic computer literacy and internet navigation',
+        'Creative thinking and visual design interest',
+        'No prior design experience required',
+        'Understanding of websites and mobile apps helpful'
+      ],
+      careerOpportunities: [
+        'UI Designer',
+        'UX Designer',
+        'Product Designer',
+        'Interaction Designer',
+        'UX Researcher',
+        'Visual Designer',
+        'Web/App Interface Designer'
+      ],
+      icon: Palette
+    },
     '1': {
       id: '1',
       title: 'Full Stack Master Program',
