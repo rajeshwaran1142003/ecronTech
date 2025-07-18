@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Clock, Users, Award, CheckCircle, Send, User, Mail, Phone, MessageSquare, BookOpen, Target, Briefcase } from 'lucide-react';
+import { ArrowLeft, Clock, Users, Award, CheckCircle, Send, User, Mail, Phone, MessageSquare, BookOpen, Target, Briefcase, Code, Palette } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import Header from './Header';
 import Footer from './Footer';
