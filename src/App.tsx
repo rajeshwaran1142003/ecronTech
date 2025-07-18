@@ -9,6 +9,7 @@ import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppFloat from './components/WhatsAppFloat';
+import DemoForm from './components/DemoForm';
 import ContactPage from './components/ContactPage';
 import ModernContactPage from './components/ModernContactPage';
 import CourseDetailPage from './components/CourseDetailPage';
@@ -17,12 +18,15 @@ import './styles/ModernContactPage.css';
 function App() {
   const [currentView, setCurrentView] = useState<'home' | 'contact' | 'modern-contact' | 'course-detail'>('home');
   const [selectedCourseId, setSelectedCourseId] = useState<string>('');
+  const [isDemoFormOpen, setIsDemoFormOpen] = useState(false);
 
   // Handle URL hash changes for demo purposes
   React.useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash;
-      if (hash === '#contact-page') {
+      if (hash === '#demo-form') {
+        setIsDemoFormOpen(true);
+      } else if (hash === '#contact-page') {
         setCurrentView('contact');
       } else if (hash === '#modern-contact') {
         setCurrentView('modern-contact');
@@ -76,6 +80,10 @@ function App() {
             <WhatsAppFloat />
           </>
         )}
+        <DemoForm 
+          isOpen={isDemoFormOpen} 
+          onClose={() => setIsDemoFormOpen(false)} 
+        />
       </div>
     </ThemeProvider>
   );

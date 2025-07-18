@@ -38,7 +38,7 @@ const ModernContactPage: React.FC = () => {
     {
       icon: Clock,
       label: 'Hours',
-      value: 'Mon-Sat 9AM-8PM',
+      value: 'Mon-Sat 7AM-9PM',
       href: null,
       ariaLabel: 'Business hours'
     }

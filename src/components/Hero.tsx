@@ -81,9 +81,7 @@ const Hero: React.FC = () => {
             </a>
             
             <a
-              href="https://youtu.be/_MVIkEhN1oQ?si=MYLegWTxze1ITgM7"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#demo-form"
               className="group bg-transparent border-2 border-pink-500 text-pink-400 px-8 py-4 rounded-xl font-semibold hover:bg-pink-500 hover:text-white transition-all duration-300 flex items-center gap-3 transform hover:scale-105"
             >
               <Play size={20} className="group-hover:scale-110 transition-transform" />

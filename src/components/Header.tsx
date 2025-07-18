@@ -33,8 +33,15 @@ const Header: React.FC = () => {
             <div className="flex items-center gap-6 overflow-x-auto">
               <div className="flex items-center gap-2 whitespace-nowrap">
                 <MapPin size={14} />
-                <span className="hidden sm:inline">Door No: 55, Railway Station Road, Alandur, Chennai - 600 016</span>
-                <span className="sm:hidden">Alandur, Chennai</span>
+                <a 
+                  href="https://www.google.com/maps/place/Ecron+Technologies/@12.996849,80.200753,212m/data=!3m1!1e3!4m6!3m5!1s0x3a5267c5c50abd9d%3A0xa11be222559d6e88!8m2!3d12.9968485!4d80.200753!16s%2Fg%2F11x07c4j10?hl=en&entry=ttu&g_ep=EgoyMDI1MDYyMy4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-pink-200 transition-colors"
+                >
+                  <span className="hidden sm:inline">Door No: 55, Railway Station Road, Alandur, Chennai - 600 016</span>
+                  <span className="sm:hidden">Alandur, Chennai</span>
+                </a>
               </div>
               <div className="flex items-center gap-2 whitespace-nowrap">
                 <Phone size={14} />

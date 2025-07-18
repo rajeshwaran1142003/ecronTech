@@ -12,15 +12,18 @@ const Footer: React.FC = () => {
   ];
 
   const courses = [
-    'Python Programming',
-    'JavaScript Development',
-    'Java Programming',
-    'C/C++ Programming',
-    'Go Programming',
-    'PHP Development',
-    'HTML/CSS/Bootstrap',
-    'Oracle Database',
-    'PostgreSQL'
+    'MEAN Stack Development',
+    'UI/UX Design',
+    'Full Stack Master Program',
+    'Cloud Computing',
+    'Cloud Computing Master Program',
+    'Software Testing Master Program',
+    'Data Science Master Training',
+    'Data Analytics Training',
+    'Java Developer Training',
+    'Python Developer Training',
+    'Cyber Security',
+    'Azure DevOps'
   ];
 
   return (

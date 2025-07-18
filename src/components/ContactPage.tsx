@@ -98,7 +98,7 @@ const ContactPage: React.FC = () => {
     {
       icon: Clock,
       title: 'Business Hours',
-      details: ['Monday - Saturday: 9:00 AM - 8:00 PM', 'Sunday: Closed']
+      details: ['Monday - Saturday: 7:00 AM - 9:00 PM', 'Sunday: Closed']
     }
   ];
 

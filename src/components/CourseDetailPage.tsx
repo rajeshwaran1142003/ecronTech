@@ -561,6 +561,11 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
 
       setSubmitStatus('success');
       setFormData({ name: '', email: '', phone: '', course: course.title, experience: '', message: '' });
+      
+      // Show confirmation popup
+      setTimeout(() => {
+        alert('Thank you! Our team will contact you shortly.');
+      }, 100);
     } catch (error) {
       console.error('Error submitting course application:', error);
       setSubmitStatus('error');

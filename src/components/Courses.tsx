@@ -59,6 +59,36 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
       ]
     },
     {
+      id: 'cyber-security',
+      icon: Shield,
+      title: 'Cyber Security',
+      description: 'Comprehensive cybersecurity training covering ethical hacking, network security, and digital forensics.',
+      category: 'security',
+      duration: '14 weeks',
+      level: 'Intermediate to Advanced',
+      highlights: ['Ethical Hacking', 'Network Security', 'Digital Forensics'],
+      details: [
+        'Penetration testing and vulnerability assessment',
+        'Network security and firewall configuration',
+        'Digital forensics and incident response'
+      ]
+    },
+    {
+      id: 'azure-devops',
+      icon: Cloud,
+      title: 'Azure DevOps',
+      description: 'Master Microsoft Azure DevOps tools and practices for continuous integration and deployment.',
+      category: 'cloud',
+      duration: '10 weeks',
+      level: 'Intermediate',
+      highlights: ['Azure DevOps', 'CI/CD Pipelines', 'Infrastructure as Code'],
+      details: [
+        'Azure DevOps services and tools',
+        'Building CI/CD pipelines',
+        'Infrastructure automation with ARM templates'
+      ]
+    },
+    {
       id: '1',
       icon: Code,
       title: 'Full Stack Master Program',
@@ -195,7 +225,8 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
     { id: 'programming', label: 'Programming' },
     { id: 'cloud', label: 'Cloud & DevOps' },
     { id: 'data', label: 'Data Science' },
-    { id: 'testing', label: 'Testing' }
+    { id: 'testing', label: 'Testing' },
+    { id: 'security', label: 'Cyber Security' }
   ];
 
   const filteredCourses = activeFilter === 'all' 
