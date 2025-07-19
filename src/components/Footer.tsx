@@ -1,8 +1,14 @@
 import React from 'react';
+import { useState } from 'react';
 import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 import SocialLinks from './SocialLinks';
+import { subscribeToNewsletter } from '../lib/newsletter';
 
 const Footer: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState('');
+
   const quickLinks = [
     { href: '#home', label: 'Home' },
     { href: '#courses', label: 'Courses' },
@@ -25,6 +31,29 @@ const Footer: React.FC = () => {
     'Cyber Security',
     'Azure DevOps'
   ];
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email.trim()) {
+      setMessage('Please enter your email address');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setMessage('');
+
+    const result = await subscribeToNewsletter(email);
+    
+    if (result.success) {
+      setMessage('Thank you for subscribing to our newsletter!');
+      setEmail('');
+    } else {
+      setMessage(result.error || 'Failed to subscribe. Please try again.');
+    }
+    
+    setIsSubmitting(false);
+  };
 
   return (
     <footer className="bg-gradient-to-br from-black via-gray-900 to-black text-white relative overflow-hidden">
@@ -128,18 +157,27 @@ const Footer: React.FC = () => {
               Subscribe to our newsletter for the latest updates on courses and technology trends.
             </p>
             
-            <form className="space-y-4">
+            <form onSubmit={handleNewsletterSubmit} className="space-y-4">
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Your email address"
                 className="w-full px-4 py-3 bg-white/5 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300"
+                disabled={isSubmitting}
               />
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 disabled:from-pink-400 disabled:to-pink-500 text-white py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 disabled:transform-none disabled:cursor-not-allowed"
               >
-                Subscribe
+                {isSubmitting ? 'Subscribing...' : 'Subscribe'}
               </button>
+              {message && (
+                <p className={`text-sm ${message.includes('Thank you') ? 'text-green-400' : 'text-red-400'}`}>
+                  {message}
+                </p>
+              )}
             </form>
             
             <div className="mt-8">
