@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Code, Database, Smartphone, Globe, Brain, Shield, FileCode, Server, Layout, Cloud, TestTube, BarChart3, Coffee, ChevronDown, ChevronUp, Palette, Layers, Aws } from 'lucide-react';
+import { Code, Database, Smartphone, Globe, Brain, Shield, FileCode, Server, Layout, Cloud, TestTube, BarChart3, Coffee, ChevronDown, ChevronUp, Palette, Layers, Rows as Aws } from 'lucide-react';
 
 interface Course {
   id: string;
@@ -372,24 +372,6 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
                     {course.level}
                   </span>
                 </div>
-
-                {/* Fee and Salary Info */}
-                {(course.fee || course.maxSalary) && (
-                  <div className="mb-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-xl border border-green-200 dark:border-green-800">
-                    {course.fee && (
-                      <div className="text-center mb-2">
-                        <span className="text-sm text-gray-600 dark:text-gray-400">Course Fee: </span>
-                        <span className="font-bold text-green-600 dark:text-green-400">{course.fee}</span>
-                      </div>
-                    )}
-                    {course.maxSalary && (
-                      <div className="text-center">
-                        <span className="text-sm text-gray-600 dark:text-gray-400">Expected Salary: </span>
-                        <span className="font-bold text-blue-600 dark:text-blue-400">{course.maxSalary}</span>
-                      </div>
-                    )}
-                  </div>
-                )}
 
                 {/* Expanded Details */}
                 {isExpanded && (
