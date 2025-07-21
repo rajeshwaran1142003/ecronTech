@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Code, Database, Smartphone, Globe, Brain, Shield, FileCode, Server, Layout, Cloud, TestTube, BarChart3, Coffee, ChevronDown, ChevronUp, Palette, Layers, Rows as Aws } from 'lucide-react';
+import { Code, Database, Smartphone, Globe, Brain, Shield, FileCode, Server, Layout, Cloud, TestTube, BarChart3, Coffee, ChevronDown, ChevronUp, Palette, Layers } from 'lucide-react';
 
 interface Course {
   id: string;
@@ -45,21 +45,17 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
       id: 'uiux-design',
       icon: Palette,
       title: 'UI/UX Design',
-      description: 'Master UI/UX design with industry-standard tools. Learn user research, wireframing, prototyping, and visual design principles.',
+      description: 'Comprehensive UI/UX design training covering user research, wireframing, prototyping, and visual design using industry-standard tools.',
       category: 'design',
       duration: '2 months',
       level: 'Beginner to Intermediate',
-      fee: '₹25,000',
-      maxSalary: '₹30,000 Per Month',
-      highlights: ['Figma, Illustrator, Miro', 'User Research & Wireframing', 'Prototyping & Visual Design'],
+      highlights: ['HTML, CSS, JS, Bootstrap', 'React JS, Node.js, MongoDB', 'Figma, Adobe XD, Sketch'],
       details: [
-        'Master Figma for professional UI/UX workflows',
-        'Adobe Illustrator for vector graphics and icons',
-        'Miro for collaborative design thinking',
-        'User research and persona development',
-        'Wireframing and prototyping techniques',
-        'Visual design principles and color theory',
-        'Real-world design projects and case studies'
+        'Full product design lifecycle training',
+        'User research and wireframing techniques',
+        'Prototyping and visual design mastery',
+        'Industry tools: Figma, Adobe XD, Sketch',
+        'Real-world case studies and projects'
       ]
     },
     {
@@ -78,54 +74,18 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
       ]
     },
     {
-      id: 'aws-devops',
+      id: 'azure-devops',
       icon: Cloud,
-      title: 'AWS & DevOps',
-      description: 'Master Amazon Web Services and DevOps practices for scalable cloud infrastructure and deployment.',
+      title: 'Azure DevOps',
+      description: 'Master Microsoft Azure DevOps tools and practices for continuous integration and deployment.',
       category: 'cloud',
       duration: '10 weeks',
       level: 'Intermediate',
-      highlights: ['AWS Services', 'CI/CD Pipelines', 'Infrastructure as Code'],
+      highlights: ['Azure DevOps', 'CI/CD Pipelines', 'Infrastructure as Code'],
       details: [
-        'AWS core services (EC2, S3, RDS, Lambda)',
-        'DevOps tools and practices',
+        'Azure DevOps services and tools',
         'Building CI/CD pipelines',
-        'Infrastructure automation with CloudFormation',
-        'Monitoring and logging with CloudWatch'
-      ]
-    },
-    {
-      id: 'azure',
-      icon: Cloud,
-      title: 'Azure',
-      description: 'Comprehensive Microsoft Azure cloud platform training covering core services and enterprise solutions.',
-      category: 'cloud',
-      duration: '8 weeks',
-      level: 'Intermediate',
-      highlights: ['Azure Services', 'Virtual Machines', 'Azure AD'],
-      details: [
-        'Azure core services and architecture',
-        'Virtual machines and networking',
-        'Azure Active Directory and security',
-        'Storage solutions and databases',
-        'Monitoring and management tools'
-      ]
-    },
-    {
-      id: 'gcp',
-      icon: Cloud,
-      title: 'GCP (Google Cloud Platform)',
-      description: 'Master Google Cloud Platform services including compute, storage, and machine learning capabilities.',
-      category: 'cloud',
-      duration: '8 weeks',
-      level: 'Intermediate',
-      highlights: ['GCP Services', 'Compute Engine', 'BigQuery'],
-      details: [
-        'Google Cloud core services',
-        'Compute Engine and App Engine',
-        'Cloud Storage and BigQuery',
-        'Kubernetes Engine and containers',
-        'Machine learning and AI services'
+        'Infrastructure automation with ARM templates'
       ]
     },
     {
