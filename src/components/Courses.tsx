@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Code, Database, Smartphone, Globe, Brain, Shield, FileCode, Server, Layout, Cloud, TestTube, BarChart3, Coffee, ChevronDown, ChevronUp, Palette, Layers } from 'lucide-react';
+import { Code, Database, Smartphone, Globe, Brain, Shield, FileCode, Server, Layout, Cloud, TestTube, BarChart3, Coffee, ChevronDown, ChevronUp, Palette, Layers, Aws } from 'lucide-react';
 
 interface Course {
   id: string;
@@ -45,17 +45,21 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
       id: 'uiux-design',
       icon: Palette,
       title: 'UI/UX Design',
-      description: 'Comprehensive UI/UX design training covering user research, wireframing, prototyping, and visual design using industry-standard tools.',
+      description: 'Master UI/UX design with industry-standard tools. Learn user research, wireframing, prototyping, and visual design principles.',
       category: 'design',
       duration: '2 months',
       level: 'Beginner to Intermediate',
-      highlights: ['HTML, CSS, JS, Bootstrap', 'React JS, Node.js, MongoDB', 'Figma, Adobe XD, Sketch'],
+      fee: '₹25,000',
+      maxSalary: '₹30,000 Per Month',
+      highlights: ['Figma, Illustrator, Miro', 'User Research & Wireframing', 'Prototyping & Visual Design'],
       details: [
-        'Full product design lifecycle training',
-        'User research and wireframing techniques',
-        'Prototyping and visual design mastery',
-        'Industry tools: Figma, Adobe XD, Sketch',
-        'Real-world case studies and projects'
+        'Master Figma for professional UI/UX workflows',
+        'Adobe Illustrator for vector graphics and icons',
+        'Miro for collaborative design thinking',
+        'User research and persona development',
+        'Wireframing and prototyping techniques',
+        'Visual design principles and color theory',
+        'Real-world design projects and case studies'
       ]
     },
     {
@@ -74,18 +78,54 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
       ]
     },
     {
-      id: 'azure-devops',
+      id: 'aws-devops',
       icon: Cloud,
-      title: 'Azure DevOps',
-      description: 'Master Microsoft Azure DevOps tools and practices for continuous integration and deployment.',
+      title: 'AWS & DevOps',
+      description: 'Master Amazon Web Services and DevOps practices for scalable cloud infrastructure and deployment.',
       category: 'cloud',
       duration: '10 weeks',
       level: 'Intermediate',
-      highlights: ['Azure DevOps', 'CI/CD Pipelines', 'Infrastructure as Code'],
+      highlights: ['AWS Services', 'CI/CD Pipelines', 'Infrastructure as Code'],
       details: [
-        'Azure DevOps services and tools',
+        'AWS core services (EC2, S3, RDS, Lambda)',
+        'DevOps tools and practices',
         'Building CI/CD pipelines',
-        'Infrastructure automation with ARM templates'
+        'Infrastructure automation with CloudFormation',
+        'Monitoring and logging with CloudWatch'
+      ]
+    },
+    {
+      id: 'azure',
+      icon: Cloud,
+      title: 'Azure',
+      description: 'Comprehensive Microsoft Azure cloud platform training covering core services and enterprise solutions.',
+      category: 'cloud',
+      duration: '8 weeks',
+      level: 'Intermediate',
+      highlights: ['Azure Services', 'Virtual Machines', 'Azure AD'],
+      details: [
+        'Azure core services and architecture',
+        'Virtual machines and networking',
+        'Azure Active Directory and security',
+        'Storage solutions and databases',
+        'Monitoring and management tools'
+      ]
+    },
+    {
+      id: 'gcp',
+      icon: Cloud,
+      title: 'GCP (Google Cloud Platform)',
+      description: 'Master Google Cloud Platform services including compute, storage, and machine learning capabilities.',
+      category: 'cloud',
+      duration: '8 weeks',
+      level: 'Intermediate',
+      highlights: ['GCP Services', 'Compute Engine', 'BigQuery'],
+      details: [
+        'Google Cloud core services',
+        'Compute Engine and App Engine',
+        'Cloud Storage and BigQuery',
+        'Kubernetes Engine and containers',
+        'Machine learning and AI services'
       ]
     },
     {
@@ -332,6 +372,24 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
                     {course.level}
                   </span>
                 </div>
+
+                {/* Fee and Salary Info */}
+                {(course.fee || course.maxSalary) && (
+                  <div className="mb-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-xl border border-green-200 dark:border-green-800">
+                    {course.fee && (
+                      <div className="text-center mb-2">
+                        <span className="text-sm text-gray-600 dark:text-gray-400">Course Fee: </span>
+                        <span className="font-bold text-green-600 dark:text-green-400">{course.fee}</span>
+                      </div>
+                    )}
+                    {course.maxSalary && (
+                      <div className="text-center">
+                        <span className="text-sm text-gray-600 dark:text-gray-400">Expected Salary: </span>
+                        <span className="font-bold text-blue-600 dark:text-blue-400">{course.maxSalary}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 {/* Expanded Details */}
                 {isExpanded && (

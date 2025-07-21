@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, User, Phone, Mail, Clock, BookOpen, Send } from 'lucide-react';
+import { X, User, Phone, Mail, Clock, BookOpen, Send, Calendar } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 interface DemoFormProps {
@@ -14,6 +14,7 @@ interface DemoApplication {
   email: string
   course_for_demo: string
   available_time: string
+  preferred_date: string
   created_at?: string
 }
 
@@ -23,7 +24,8 @@ const DemoForm: React.FC<DemoFormProps> = ({ isOpen, onClose }) => {
     phone: '',
     email: '',
     courseForDemo: '',
-    availableTime: ''
+    availableTime: '',
+    preferredDate: ''
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,15 +34,16 @@ const DemoForm: React.FC<DemoFormProps> = ({ isOpen, onClose }) => {
     'MEAN Stack Development',
     'UI/UX Design',
     'Full Stack Master Program',
-    'Cloud Computing',
-    'Cloud Computing Master Program',
+    'AWS & DevOps',
+    'Azure',
+    'GCP (Google Cloud Platform)',
     'Software Testing Master Program',
     'Data Science Master Training',
     'Data Analytics Training',
     'Java Developer Training',
     'Python Developer Training',
     'Cyber Security',
-    'Azure DevOps'
+    'Cloud Computing Master Program'
   ];
 
   const timeSlots = [
@@ -91,6 +94,10 @@ const DemoForm: React.FC<DemoFormProps> = ({ isOpen, onClose }) => {
       newErrors.availableTime = 'Please select your available time';
     }
 
+    if (!formData.preferredDate) {
+      newErrors.preferredDate = 'Please select your preferred date';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -110,7 +117,8 @@ const DemoForm: React.FC<DemoFormProps> = ({ isOpen, onClose }) => {
         phone: formData.phone,
         email: formData.email,
         course_for_demo: formData.courseForDemo,
-        available_time: formData.availableTime
+        available_time: formData.availableTime,
+        preferred_date: formData.preferredDate
       };
 
       const { error } = await supabase
@@ -128,7 +136,8 @@ const DemoForm: React.FC<DemoFormProps> = ({ isOpen, onClose }) => {
         phone: '',
         email: '',
         courseForDemo: '',
-        availableTime: ''
+        availableTime: '',
+        preferredDate: ''
       });
       onClose();
     } catch (error) {
@@ -284,6 +293,30 @@ const DemoForm: React.FC<DemoFormProps> = ({ isOpen, onClose }) => {
             </div>
             {errors.availableTime && (
               <p className="mt-1 text-sm text-red-600">{errors.availableTime}</p>
+            )}
+          </div>
+
+          {/* Preferred Date */}
+          <div>
+            <label htmlFor="preferredDate" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              Preferred Date for Demo *
+            </label>
+            <div className="relative">
+              <Calendar size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <input
+                type="date"
+                id="preferredDate"
+                name="preferredDate"
+                value={formData.preferredDate}
+                onChange={handleInputChange}
+                min={new Date().toISOString().split('T')[0]}
+                className={`w-full pl-10 pr-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-300 ${
+                  errors.preferredDate ? 'border-red-500' : 'border-gray-300'
+                }`}
+              />
+            </div>
+            {errors.preferredDate && (
+              <p className="mt-1 text-sm text-red-600">{errors.preferredDate}</p>
             )}
           </div>
 

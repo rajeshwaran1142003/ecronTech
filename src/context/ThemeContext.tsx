@@ -20,8 +20,8 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   useEffect(() => {
     const saved = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setIsDark(saved ? saved === 'dark' : prefersDark);
+    // Default to light mode, only use dark if explicitly saved
+    setIsDark(saved === 'dark');
   }, []);
 
   useEffect(() => {

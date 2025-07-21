@@ -21,15 +21,16 @@ const Footer: React.FC = () => {
     'MEAN Stack Development',
     'UI/UX Design',
     'Full Stack Master Program',
-    'Cloud Computing',
-    'Cloud Computing Master Program',
+    'AWS & DevOps',
+    'Azure',
+    'GCP (Google Cloud Platform)',
     'Software Testing Master Program',
     'Data Science Master Training',
     'Data Analytics Training',
     'Java Developer Training',
     'Python Developer Training',
     'Cyber Security',
-    'Azure DevOps'
+    'Cloud Computing Master Program'
   ];
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
