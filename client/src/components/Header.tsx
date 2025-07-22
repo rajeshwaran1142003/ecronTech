@@ -47,10 +47,11 @@ const Header: React.FC = () => {
                   +91 8438829844
                 </a>
               </div>
-              <div className="flex items-center gap-2 whitespace-nowrap">
-                <Mail size={14} />
-                <a href="mailto:ecrontechnologies@gmail.com" className="hover:text-pink-200 transition-colors">
-                  ecrontechnologies@gmail.com
+              <div className="flex items-center gap-2">
+                <Mail size={14} className="flex-shrink-0" />
+                <a href="mailto:ecrontechnologies@gmail.com" className="hover:text-pink-200 transition-colors break-all text-xs sm:text-sm">
+                  <span className="hidden sm:inline">ecrontechnologies@gmail.com</span>
+                  <span className="sm:hidden">ecrontech@gmail.com</span>
                 </a>
               </div>
             </div>

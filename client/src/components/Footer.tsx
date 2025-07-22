@@ -105,9 +105,9 @@ const Footer: React.FC = () => {
                   </a>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <Mail size={18} className="text-pink-400" />
-                <a href="mailto:ecrontechnologies@gmail.com" className="text-gray-400 text-sm hover:text-pink-400 transition-colors">
+              <div className="flex items-start gap-3">
+                <Mail size={18} className="text-pink-400 flex-shrink-0 mt-0.5" />
+                <a href="mailto:ecrontechnologies@gmail.com" className="text-gray-400 text-sm hover:text-pink-400 transition-colors break-all leading-relaxed">
                   ecrontechnologies@gmail.com
                 </a>
               </div>

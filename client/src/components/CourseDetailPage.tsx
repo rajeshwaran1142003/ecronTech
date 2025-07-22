@@ -972,9 +972,9 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
                     <Phone size={16} />
                     +91 84388 29844
                   </a>
-                  <a href="mailto:ecrontechnologies@gmail.com" className="flex items-center gap-2 text-pink-600 hover:text-pink-700 transition-colors">
-                    <Mail size={16} />
-                    ecrontechnologies@gmail.com
+                  <a href="mailto:ecrontechnologies@gmail.com" className="flex items-start gap-2 text-pink-600 hover:text-pink-700 transition-colors">
+                    <Mail size={16} className="flex-shrink-0 mt-0.5" />
+                    <span className="break-all leading-relaxed">ecrontechnologies@gmail.com</span>
                   </a>
                 </div>
               </div>

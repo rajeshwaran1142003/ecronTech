@@ -186,14 +186,14 @@ const Contact: React.FC = () => {
                 const IconComponent = info.icon;
                 const content = (
                   <div className="flex items-start gap-6 p-6 bg-white/5 backdrop-blur-sm rounded-2xl hover:bg-white/10 transition-all duration-300 group border border-pink-500/20 hover:border-pink-500/40">
-                    <div className="bg-gradient-to-br from-pink-500 to-pink-600 p-4 rounded-xl group-hover:from-pink-600 group-hover:to-pink-700 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                    <div className="bg-gradient-to-br from-pink-500 to-pink-600 p-4 rounded-xl group-hover:from-pink-600 group-hover:to-pink-700 transition-all duration-300 transform group-hover:scale-110 shadow-lg flex-shrink-0">
                       <IconComponent size={24} className="text-white" />
                     </div>
-                    <div>
+                    <div className="min-w-0 flex-1">
                       <h4 className="font-bold text-white mb-2 text-lg">{info.title}</h4>
-                      <p className="text-pink-300 font-semibold text-lg">{info.content}</p>
+                      <p className="text-pink-300 font-semibold text-lg break-all leading-relaxed">{info.content}</p>
                       {info.subtitle && (
-                        <p className="text-gray-400 mt-1">{info.subtitle}</p>
+                        <p className="text-gray-400 mt-1 break-words">{info.subtitle}</p>
                       )}
                     </div>
                   </div>
