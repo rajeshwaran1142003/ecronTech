@@ -29,6 +29,12 @@ Migrating from Bolt (Supabase) to Replit (PostgreSQL) environment:
 - **2025-01-22**: Started migration from Bolt to Replit
 - **2025-01-22**: Created progress tracking system
 - **2025-01-22**: Set up PostgreSQL database environment
+- **2025-01-22**: Completed migration from Supabase to PostgreSQL
+- **2025-01-22**: Removed dark mode, keeping only light mode active
+- **2025-01-22**: Updated UI/UX course (2 months, ₹25,000, Figma/Adobe XD/Miro)
+- **2025-01-22**: Removed Full Stack Master Program completely from all components
+- **2025-01-22**: Added comprehensive Java & Python Development Training courses
+- **2025-01-22**: Enhanced course curriculum with detailed 20+ key topics per course
 
 ## User Preferences
 - Clean, professional communication style
