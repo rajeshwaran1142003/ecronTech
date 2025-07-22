@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon, Phone, Mail, MapPin } from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
+import { Menu, X, Phone, Mail, MapPin } from 'lucide-react';
 import SocialLinks from './SocialLinks';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { isDark, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,8 +64,8 @@ const Header: React.FC = () => {
       {/* Main Navigation */}
       <header className={`sticky top-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-xl border-b border-pink-100 dark:border-pink-900' 
-          : 'bg-white dark:bg-gray-900'
+          ? 'bg-white/95 backdrop-blur-sm shadow-xl border-b border-pink-100' 
+          : 'bg-white'
       }`}>
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-4">
@@ -79,10 +77,10 @@ const Header: React.FC = () => {
                 className="h-12 w-auto mr-3 transition-transform hover:scale-105"
               />
               <div>
-                <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-xl font-bold text-gray-900">
                   Ecron Technologies
                 </h1>
-                <p className="text-xs text-pink-600 dark:text-pink-400 font-medium">
+                <p className="text-xs text-pink-600 font-medium">
                   Software Training Institute
                 </p>
               </div>
@@ -94,31 +92,19 @@ const Header: React.FC = () => {
                 <a
                   key={item.href}
                   href={item.href}
-                  className="text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 font-medium transition-all duration-300 relative group"
+                  className="text-gray-700 hover:text-pink-600 font-medium transition-all duration-300 relative group"
                 >
                   {item.label}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-600 transition-all duration-300 group-hover:w-full"></span>
                 </a>
               ))}
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-pink-100 dark:hover:bg-pink-900 hover:text-pink-600 dark:hover:text-pink-400 transition-all duration-300 transform hover:scale-110"
-              >
-                {isDark ? <Sun size={20} /> : <Moon size={20} />}
-              </button>
             </nav>
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center gap-2">
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-pink-100 dark:hover:bg-pink-900 transition-colors"
-              >
-                {isDark ? <Sun size={18} /> : <Moon size={18} />}
-              </button>
+            <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-pink-100 dark:hover:bg-pink-900 transition-all duration-300 transform hover:scale-110"
+                className="p-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-pink-100 transition-all duration-300 transform hover:scale-110"
               >
                 {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
@@ -127,14 +113,14 @@ const Header: React.FC = () => {
 
           {/* Mobile Menu */}
           <div className={`md:hidden transition-all duration-300 overflow-hidden ${
-            isMenuOpen ? 'max-h-96 py-4 border-t dark:border-gray-700' : 'max-h-0'
+            isMenuOpen ? 'max-h-96 py-4 border-t border-gray-200' : 'max-h-0'
           }`}>
             <nav className="flex flex-col space-y-4">
               {navItems.map((item, index) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 font-medium transition-all duration-300 py-2 px-4 rounded-lg hover:bg-pink-50 dark:hover:bg-pink-900/20 animate-slide-in-left"
+                  className="text-gray-700 hover:text-pink-600 font-medium transition-all duration-300 py-2 px-4 rounded-lg hover:bg-pink-50 animate-slide-in-left"
                   style={{ animationDelay: `${index * 0.1}s` }}
                   onClick={() => setIsMenuOpen(false)}
                 >

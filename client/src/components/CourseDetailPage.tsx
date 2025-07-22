@@ -118,86 +118,132 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
     },
     'uiux-design': {
       id: 'uiux-design',
-      title: 'UI/UX Design',
-      description: 'The UI/UX Design Training program is designed to equip learners with a strong foundation in user interface (UI) and user experience (UX) design principles, tools, and methodologies.',
+      title: 'UI/UX Design Training',
+      description: 'Professional UI/UX design program focusing on Design Thinking, User Research, and modern design tools.',
       duration: '2 months',
-      level: 'Beginner to Intermediate',
-      highlights: ['HTML, CSS, JS, Bootstrap', 'React JS, Node.js, MongoDB', 'Figma, Adobe XD, Sketch'],
+      level: 'Beginner to Advanced',
+      highlights: ['Figma, Adobe XD, Miro', 'Design Thinking & User Research', 'Wireframing & Prototyping'],
       details: [
-        'Full product design lifecycle training',
-        'User research and wireframing techniques',
-        'Prototyping and visual design mastery',
-        'Industry tools: Figma, Adobe XD, Sketch',
-        'Real-world case studies and projects'
+        '• Duration: 2 months intensive training',
+        '• Course Fee: ₹25,000 (affordable & comprehensive)',
+        '• Expected Starting Salary: ₹30,000/month',
+        '• Key Tools: Figma, Adobe XD, Miro for professional workflows',
+        '• Focus Areas: Design Thinking, Wireframing, User Research, Usability Testing'
       ],
-      fullDescription: 'The UI/UX Design Training program is designed to equip learners with a strong foundation in user interface (UI) and user experience (UX) design principles, tools, and methodologies. Through hands-on projects and real-world case studies, students learn how to create intuitive, attractive, and user-centered digital products. The course covers the full product design lifecycle—from user research and wireframing to prototyping, testing, and visual design—using industry tools like Figma, Adobe XD, and Sketch. Fees: ₹40,000 + GST. Mode: Online / Offline. Average Salaries: ₹3L - ₹7L Per Annum. Hiring Companies: TCS, Accenture, Amazon, CISCO, Capgemini, etc.',
+      fullDescription: '🚀 Transform your creative potential into a high-paying UI/UX design career! Our comprehensive 2-month program equips you with professional design thinking methodology, user research techniques, and mastery of industry-standard tools like Figma, Adobe XD, and Miro. Learn to create intuitive, user-centered digital experiences through hands-on projects and real-world case studies. With an expected starting salary of ₹30,000/month, this course offers excellent ROI for your career investment.',
       curriculum: [
-        'HTML: Structure and semantic markup for web interfaces',
-        'CSS: Styling, layouts, responsive design principles',
-        'JavaScript: Interactive elements and user behavior',
-        'Bootstrap: Rapid prototyping and responsive frameworks',
-        'React JS: Component-based UI development',
-        'Node.js: Backend integration for full-stack understanding',
-        'MongoDB: Database design for user data management',
-        'Figma: Professional design tool for UI/UX workflows',
-        'Adobe XD: Prototyping and design system creation',
-        'Sketch: Vector-based design for digital interfaces'
+        '• Design Thinking: User-centered methodology, problem-solving frameworks, innovation processes',
+        '• User Research: Interviews, surveys, persona creation, user journey mapping, behavioral analysis',
+        '• Wireframing: Low-fidelity sketches, digital wireframes, information architecture, content strategy',
+        '• Figma Mastery: Interface design, advanced prototyping, design systems, collaboration features',
+        '• Adobe XD: Interactive prototypes, micro-interactions, design handoffs, developer collaboration',
+        '• Miro: Collaborative brainstorming, user journey mapping, design workshops, ideation sessions',
+        '• Usability Testing: Test planning, user testing sessions, data analysis, iteration strategies',
+        '• Visual Design: Typography, color theory, layout principles, accessibility guidelines',
+        '• Portfolio Development: Case study creation, presentation skills, personal branding, career guidance',
+        '• Industry Best Practices: Design systems, responsive design, mobile-first approach'
       ],
       prerequisites: [
-        'Basic computer literacy and internet navigation',
-        'Creative thinking and visual design interest',
+        'Basic computer skills and design interest',
+        'Creative thinking and problem-solving mindset', 
         'No prior design experience required',
-        'Understanding of websites and mobile apps helpful'
+        'Willingness to learn and practice design principles'
       ],
       careerOpportunities: [
-        'UI Designer',
-        'UX Designer',
-        'Product Designer',
-        'Interaction Designer',
-        'UX Researcher',
-        'Visual Designer',
-        'Web/App Interface Designer'
+        'UI Designer - Starting ₹30,000+/month',
+        'UX Designer - Starting ₹32,000+/month',
+        'Product Designer - Starting ₹35,000+/month', 
+        'UX Researcher - Starting ₹30,000+/month',
+        'Interaction Designer - Starting ₹33,000+/month',
+        'Visual Designer - Starting ₹28,000+/month'
       ],
       icon: Palette
     },
-    '1': {
-      id: '1',
-      title: 'Full Stack Master Program',
-      description: 'Complete web development training covering frontend, backend, and database technologies.',
-      duration: '16 weeks',
+    'java-development': {
+      id: 'java-development',
+      title: 'Java Development Training',
+      description: 'Complete Java development program covering Frontend, Backend, API Development, and Real-time Projects.',
+      duration: '2 months',
       level: 'Beginner to Advanced',
-      highlights: ['HTML, CSS, Bootstrap', 'JavaScript, Python, Java', 'Angular, SQL'],
+      highlights: ['Java, Spring Boot, MySQL', 'Frontend & Backend Development', 'API Development & Deployment'],
       details: [
-        'Real-time web & backend development',
-        'Project-based learning',
-        'Version control, API integration, SQL practices'
+        '• Duration: 2 months comprehensive training',
+        '• Course Fee: ₹25,000 (industry-competitive pricing)',
+        '• Expected Starting Salary: ₹30,000/month',
+        '• Coverage: Frontend, Backend, API Development, Deployment',
+        '• Key Tools: Java, Spring Boot, MySQL for enterprise applications'
       ],
-      fullDescription: 'Our Full Stack Master Program is designed to transform you into a complete web developer. This comprehensive 16-week course covers everything from frontend technologies like HTML, CSS, and JavaScript to backend development with Python and Java. You\'ll learn to build responsive web applications, work with databases, and deploy applications to production environments. The program emphasizes hands-on learning through real-world projects that mirror industry standards.',
+      fullDescription: '🚀 Launch your career in Java development with our comprehensive 2-month program! Master the complete development lifecycle from frontend interfaces to backend systems, API development, and deployment strategies. Using industry-standard tools like Java, Spring Boot, and MySQL, you\'ll build real-time projects that showcase your skills to potential employers. With an expected starting salary of ₹30,000/month, this course offers excellent career prospects in the thriving Java ecosystem.',
       curriculum: [
-        'Frontend Development: HTML5, CSS3, Bootstrap, Responsive Design',
-        'JavaScript Fundamentals: ES6+, DOM Manipulation, Async Programming',
-        'Backend Development: Python/Django, Java/Spring Boot',
-        'Database Management: SQL, MySQL, PostgreSQL',
-        'Version Control: Git, GitHub, Collaboration Workflows',
-        'API Development: RESTful APIs, JSON, Authentication',
-        'Frontend Frameworks: Angular, Component-based Architecture',
-        'Deployment: Cloud platforms, CI/CD, Production best practices'
+        '• Java Fundamentals: OOP concepts, data structures, algorithms, exception handling',
+        '• Advanced Java: Collections framework, multithreading, file handling, networking',
+        '• Spring Boot: Microservices architecture, dependency injection, auto-configuration',
+        '• Frontend Technologies: HTML5, CSS3, JavaScript, responsive design principles',
+        '• MySQL Database: Database design, SQL queries, CRUD operations, optimization',
+        '• RESTful API Development: API design, JSON handling, authentication, documentation',
+        '• Real-time Projects: E-commerce systems, banking applications, inventory management',
+        '• Deployment: Cloud platforms, containerization, CI/CD pipelines, production deployment',
+        '• Version Control: Git, GitHub, collaborative development workflows',
+        '• Industry Best Practices: Code quality, testing, security, performance optimization'
       ],
       prerequisites: [
-        'Basic computer literacy',
-        'No prior programming experience required',
-        'Willingness to learn and practice regularly',
-        'Access to a computer with internet connection'
+        'Basic computer literacy and logical thinking',
+        'No prior Java experience required',
+        'Willingness to learn programming concepts',
+        'Access to computer with internet connection'
       ],
       careerOpportunities: [
-        'Full Stack Developer',
-        'Frontend Developer',
-        'Backend Developer',
-        'Web Application Developer',
-        'Software Engineer',
-        'Technical Lead'
+        'Java Developer - Starting ₹30,000+/month',
+        'Backend Developer - Starting ₹32,000+/month',
+        'Full Stack Java Developer - Starting ₹35,000+/month',
+        'Spring Boot Developer - Starting ₹33,000+/month',
+        'Enterprise Application Developer - Starting ₹38,000+/month',
+        'Software Engineer - Starting ₹30,000+/month'
       ],
-      icon: BookOpen
+      icon: Code
+    },
+    'python-development': {
+      id: 'python-development',
+      title: 'Python Development Training',
+      description: 'Complete Python development program covering Frontend, Backend, API Development, and Real-time Projects.',
+      duration: '2 months',
+      level: 'Beginner to Advanced',
+      highlights: ['Python, Django, PostgreSQL', 'Frontend & Backend Development', 'API Development & Deployment'],
+      details: [
+        '• Duration: 2 months intensive training',
+        '• Course Fee: ₹25,000 (excellent value for money)',
+        '• Expected Starting Salary: ₹30,000/month',
+        '• Coverage: Frontend, Backend, API Development, Deployment',
+        '• Key Tools: Python, Django, PostgreSQL for modern web applications'
+      ],
+      fullDescription: '🚀 Kickstart your Python development career with our comprehensive 2-month program! Master the art of building scalable web applications using Python, Django, and PostgreSQL. From creating dynamic frontend interfaces to developing robust backend systems and APIs, you\'ll gain hands-on experience with real-time projects. With Python\'s growing demand and an expected starting salary of ₹30,000/month, this course is your gateway to a lucrative tech career.',
+      curriculum: [
+        '• Python Fundamentals: Syntax, data types, control structures, functions, modules',
+        '• Advanced Python: OOP, decorators, generators, context managers, error handling',
+        '• Django Framework: MVC architecture, models, views, templates, admin interface',
+        '• Frontend Technologies: HTML5, CSS3, JavaScript, Bootstrap, responsive design',
+        '• PostgreSQL Database: Database design, queries, ORM, migrations, optimization',
+        '• RESTful API Development: Django REST framework, serializers, authentication',
+        '• Real-time Projects: Social media platforms, e-learning systems, CRM applications',
+        '• Deployment: Cloud hosting, Docker containers, CI/CD automation, production setup',
+        '• Version Control: Git workflows, collaborative development, code review practices',
+        '• Industry Standards: Testing, debugging, security best practices, performance tuning'
+      ],
+      prerequisites: [
+        'Basic computer skills and logical thinking',
+        'No prior Python experience required',
+        'Enthusiasm for problem-solving and learning',
+        'Computer with internet access for hands-on practice'
+      ],
+      careerOpportunities: [
+        'Python Developer - Starting ₹30,000+/month',
+        'Django Developer - Starting ₹32,000+/month',
+        'Full Stack Python Developer - Starting ₹35,000+/month',
+        'Backend Developer - Starting ₹31,000+/month',
+        'Web Application Developer - Starting ₹33,000+/month',
+        'Software Engineer - Starting ₹30,000+/month'
+      ],
+      icon: Code
     },
     '2': {
       id: '2',
