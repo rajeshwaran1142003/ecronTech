@@ -60,7 +60,7 @@ const DemoForm: React.FC<DemoFormProps> = ({ isOpen, onClose }) => {
     'Java Development Training',
     'Python Development Training',
     'Cloud Computing',
-    'Cloud Computing Master Program',
+    'AWS & DevOps Master Training',
     'Software Testing Master Program',
     'Data Science Master Training',
     'Data Analytics Training',

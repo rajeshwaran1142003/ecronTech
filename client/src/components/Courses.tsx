@@ -108,17 +108,18 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
     {
       id: '3',
       icon: Server,
-      title: 'Cloud Computing Master Program',
-      description: 'Advanced cloud computing with comprehensive DevOps and automation training.',
+      title: 'AWS & DevOps Master Training',
+      description: 'Comprehensive AWS cloud services with advanced DevOps practices, automation, and enterprise deployment strategies.',
       category: 'cloud',
-      duration: '18 weeks',
-      level: 'Advanced',
-      fee: 'Contact for pricing',
-      highlights: ['Linux, Shell Scripting', 'AWS/Azure/GCP, DevOps', 'Python'],
+      duration: '2 months',
+      level: 'Beginner to Advanced',
+      fee: '₹25,000',
+      highlights: ['AWS Cloud Services', 'DevOps & CI/CD', 'Docker & Kubernetes'],
       details: [
-        'Real-world DevOps environments',
-        'Scripting for automation',
-        'End-to-end deployment'
+        '• AWS Services: EC2, S3, RDS, Lambda, VPC',
+        '• DevOps Tools: Jenkins, Docker, Kubernetes',
+        '• Infrastructure as Code: Terraform, CloudFormation',
+        '• Expected Starting Salary: ₹30,000/month'
       ]
     },
     {
