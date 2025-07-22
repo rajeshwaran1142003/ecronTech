@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Clock, Users, Award, CheckCircle, Send, User, Mail, Phone, MessageSquare, BookOpen, Target, Briefcase, Code, Palette } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { useMutation } from '@tanstack/react-query';
+import { apiRequest } from '../lib/queryClient';
 import Header from './Header';
 import Footer from './Footer';
 import WhatsAppFloat from './WhatsAppFloat';
@@ -48,8 +49,30 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
     message: ''
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  // Create mutation for course application
+  const createCourseApplication = useMutation({
+    mutationFn: async (applicationData: Omit<CourseApplication, 'id' | 'created_at'>) => {
+      return apiRequest('/api/course-applications', {
+        method: 'POST',
+        body: JSON.stringify(applicationData),
+      });
+    },
+    onSuccess: () => {
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', phone: '', course: '', experience: '', message: '' });
+      
+      // Show confirmation popup
+      setTimeout(() => {
+        alert('Thank you! Our team will contact you shortly.');
+      }, 100);
+    },
+    onError: (error: any) => {
+      console.error('Error submitting course application:', error);
+      setSubmitStatus('error');
+    },
+  });
 
   const coursesData: Record<string, CourseData> = {
     'mean-stack': {
@@ -536,42 +559,18 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
       return;
     }
 
-    setIsSubmitting(true);
     setSubmitStatus('idle');
     
-    try {
-      // Submit the course application directly to the course_applications table
-      const applicationData: Omit<CourseApplication, 'id' | 'created_at'> = {
-        full_name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        course_name: course.title,
-        experience_level: formData.experience,
-        interest_message: formData.message,
-        user_id: null // No authentication, so user_id is null
-      };
+    const applicationData: Omit<CourseApplication, 'id' | 'createdAt'> = {
+      fullName: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      courseName: course.title,
+      experienceLevel: formData.experience,
+      interestMessage: formData.message
+    };
 
-      const { error: insertError } = await supabase
-        .from('course_applications')
-        .insert([applicationData]);
-
-      if (insertError) {
-        throw insertError;
-      }
-
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', phone: '', course: course.title, experience: '', message: '' });
-      
-      // Show confirmation popup
-      setTimeout(() => {
-        alert('Thank you! Our team will contact you shortly.');
-      }, 100);
-    } catch (error) {
-      console.error('Error submitting course application:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
+    createCourseApplication.mutate(applicationData);
   };
 
   return (
@@ -858,10 +857,10 @@ const CourseDetailPage: React.FC<CourseDetailPageProps> = ({ courseId, onBack })
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={createCourseApplication.isPending}
                   className="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 disabled:from-pink-400 disabled:to-pink-500 text-white py-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-3 group transform hover:scale-105 shadow-lg hover:shadow-xl disabled:transform-none disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? (
+                  {createCourseApplication.isPending ? (
                     <>
                       <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
                       Submitting Application...

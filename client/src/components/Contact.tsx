@@ -1,7 +1,19 @@
 import React from 'react';
 import { useState } from 'react';
 import { Phone, Mail, MapPin, Clock, Send, Navigation } from 'lucide-react';
-import { supabase, type ContactMessage } from '../lib/supabase';
+import { useMutation } from '@tanstack/react-query';
+import { apiRequest } from '../lib/queryClient';
+
+interface ContactMessage {
+  id?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  courseInterest?: string;
+  message: string;
+  createdAt?: string;
+}
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -13,8 +25,32 @@ const Contact: React.FC = () => {
     message: ''
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  // Create mutation for contact form
+  const createContactMessage = useMutation({
+    mutationFn: async (messageData: Omit<ContactMessage, 'id' | 'createdAt'>) => {
+      return apiRequest('/api/contact', {
+        method: 'POST',
+        body: JSON.stringify(messageData),
+      });
+    },
+    onSuccess: () => {
+      setSubmitStatus('success');
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        courseInterest: '',
+        message: ''
+      });
+    },
+    onError: (error: any) => {
+      console.error('Error submitting contact form:', error);
+      setSubmitStatus('error');
+    },
+  });
 
   const contactInfo = [
     {
@@ -100,43 +136,18 @@ const Contact: React.FC = () => {
       return;
     }
 
-    setIsSubmitting(true);
     setSubmitStatus('idle');
     
-    try {
-      const contactMessage: Omit<ContactMessage, 'id' | 'created_at'> = {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        email: formData.email,
-        phone: formData.phone,
-        course_interest: formData.courseInterest || null,
-        message: formData.message,
-        user_id: null
-      };
+    const contactMessage: Omit<ContactMessage, 'id' | 'createdAt'> = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      phone: formData.phone,
+      courseInterest: formData.courseInterest || undefined,
+      message: formData.message
+    };
 
-      const { error } = await supabase
-        .from('contact_messages')
-        .insert([contactMessage]);
-
-      if (error) {
-        throw error;
-      }
-
-      setSubmitStatus('success');
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        courseInterest: '',
-        message: ''
-      });
-    } catch (error) {
-      console.error('Error submitting contact form:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
+    createContactMessage.mutate(contactMessage);
   };
 
   return (
@@ -376,10 +387,10 @@ const Contact: React.FC = () => {
               
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={createContactMessage.isPending}
                 className="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 disabled:from-pink-400 disabled:to-pink-500 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-3 group transform hover:scale-105 shadow-lg hover:shadow-xl disabled:transform-none disabled:cursor-not-allowed"
               >
-                {isSubmitting ? (
+                {createContactMessage.isPending ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
                     Sending...

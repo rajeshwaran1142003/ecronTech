@@ -1,9 +1,9 @@
-import { supabase } from './supabase';
+import { apiRequest } from './queryClient';
 
 // Newsletter subscription interface
 export interface NewsletterSubscription {
   email: string;
-  created_at?: string;
+  createdAt?: string;
 }
 
 // Subscribe to newsletter
@@ -15,35 +15,29 @@ export const subscribeToNewsletter = async (email: string): Promise<{ success: b
       return { success: false, error: 'Please enter a valid email address' };
     }
 
-    const { error } = await supabase
-      .from('newsletter_subscriptions')
-      .insert([{ email: email.toLowerCase().trim() }]);
-
-    if (error) {
-      // Handle duplicate email error
-      if (error.code === '23505') {
-        return { success: false, error: 'This email is already subscribed to our newsletter' };
-      }
-      throw error;
-    }
+    const response = await apiRequest('/api/newsletter/subscribe', {
+      method: 'POST',
+      body: JSON.stringify({ email: email.toLowerCase().trim() }),
+    });
 
     return { success: true };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Newsletter subscription error:', error);
-    return { success: false, error: 'Failed to subscribe. Please try again.' };
+    
+    // Handle duplicate email error from API
+    if (error.message?.includes('already subscribed')) {
+      return { success: false, error: 'This email is already subscribed to our newsletter' };
+    }
+    
+    return { success: false, error: error.message || 'Failed to subscribe. Please try again.' };
   }
 };
 
 // Get all newsletter subscriptions (admin only)
 export const getNewsletterSubscriptions = async (): Promise<NewsletterSubscription[]> => {
   try {
-    const { data, error } = await supabase
-      .from('newsletter_subscriptions')
-      .select('email, created_at')
-      .order('created_at', { ascending: false });
-
-    if (error) throw error;
-    return data || [];
+    const response = await apiRequest('/api/newsletter/subscriptions');
+    return response.data || [];
   } catch (error) {
     console.error('Error fetching newsletter subscriptions:', error);
     return [];
@@ -53,15 +47,14 @@ export const getNewsletterSubscriptions = async (): Promise<NewsletterSubscripti
 // Unsubscribe from newsletter
 export const unsubscribeFromNewsletter = async (email: string): Promise<{ success: boolean; error?: string }> => {
   try {
-    const { error } = await supabase
-      .from('newsletter_subscriptions')
-      .delete()
-      .eq('email', email.toLowerCase().trim());
+    await apiRequest('/api/newsletter/unsubscribe', {
+      method: 'DELETE',
+      body: JSON.stringify({ email: email.toLowerCase().trim() }),
+    });
 
-    if (error) throw error;
     return { success: true };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Newsletter unsubscribe error:', error);
-    return { success: false, error: 'Failed to unsubscribe. Please try again.' };
+    return { success: false, error: error.message || 'Failed to unsubscribe. Please try again.' };
   }
 };
