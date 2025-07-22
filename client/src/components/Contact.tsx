@@ -359,7 +359,7 @@ const Contact: React.FC = () => {
                   <option value="frontend" className="text-gray-800">HTML/CSS/Bootstrap</option>
                   <option value="oracle" className="text-gray-800">Oracle Database</option>
                   <option value="postgresql" className="text-gray-800">PostgreSQL</option>
-                  <option value="fullstack" className="text-gray-800">Full Stack Master Program</option>
+
                   <option value="cloud" className="text-gray-800">Cloud Computing</option>
                   <option value="datascience" className="text-gray-800">Data Science</option>
                   <option value="testing" className="text-gray-800">Software Testing</option>

@@ -57,14 +57,13 @@ const DemoForm: React.FC<DemoFormProps> = ({ isOpen, onClose }) => {
   const courses = [
     'MEAN Stack Development',
     'UI/UX Design',
-    'Full Stack Master Program',
+    'Java Development Training',
+    'Python Development Training',
     'Cloud Computing',
     'Cloud Computing Master Program',
     'Software Testing Master Program',
     'Data Science Master Training',
     'Data Analytics Training',
-    'Java Developer Training',
-    'Python Developer Training',
     'Cyber Security',
     'Azure DevOps'
   ];

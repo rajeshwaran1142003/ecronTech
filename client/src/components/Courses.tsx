@@ -88,22 +88,7 @@ const Courses: React.FC<CoursesProps> = ({ onCourseSelect }) => {
         'Infrastructure automation with ARM templates'
       ]
     },
-    {
-      id: '1',
-      icon: Code,
-      title: 'Full Stack Master Program',
-      description: 'Complete web development training covering frontend, backend, and database technologies.',
-      category: 'fullstack',
-      duration: '16 weeks',
-      level: 'Beginner to Advanced',
-      fee: 'Contact for pricing',
-      highlights: ['HTML, CSS, Bootstrap', 'JavaScript, Python, Java', 'Angular, SQL'],
-      details: [
-        'Real-time web & backend development',
-        'Project-based learning',
-        'Version control, API integration, SQL practices'
-      ]
-    },
+
     {
       id: '2',
       icon: Cloud,
