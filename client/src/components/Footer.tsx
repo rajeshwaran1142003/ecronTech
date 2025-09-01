@@ -69,7 +69,7 @@ const Footer: React.FC = () => {
           <div className="lg:col-span-1">
             <div className="flex items-center mb-6">
               <img 
-                src="/ecrone-f-02.png" 
+                src={import.meta.env.BASE_URL + "ecrone-f-02.png"} 
                 alt="Ecron Technologies Logo" 
                 className="h-12 w-auto mr-4"
               />

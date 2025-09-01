@@ -73,7 +73,7 @@ const Header: React.FC = () => {
             {/* Logo */}
             <div className="flex items-center animate-slide-in-left">
               <img 
-                src="/logo copy.png" 
+                src={import.meta.env.BASE_URL + "logo copy.png"} 
                 alt="Ecron Technologies Logo" 
                 className="h-12 w-auto mr-3 transition-transform hover:scale-105"
               />

@@ -73,7 +73,7 @@ const ModernContactPage: React.FC = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
             <img 
-              src="/logo copy.png" 
+              src={import.meta.env.BASE_URL + "logo copy.png"} 
               alt="Ecron Technologies Logo" 
               className="h-16 w-auto mx-auto mb-8 filter brightness-0 invert"
               loading="lazy"
